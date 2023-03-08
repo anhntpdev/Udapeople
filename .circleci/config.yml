@@ -140,7 +140,7 @@ jobs:
           command: |
             cd frontend
             npm install
-            npm audit --audit-level=critical
+            npm audit fix --audit-level=critical --force
       - slack/notify:
           channel: $SLACK_DEFAULT_CHANNEL
           event: pass
@@ -166,7 +166,15 @@ jobs:
           command: |
             cd backend
             npm install
-            npm audit fix --audit-level=critical
+            npm audit fix --audit-level=critical --force
+      - slack/notify:
+          channel: $SLACK_DEFAULT_CHANNEL
+          event: pass
+          template: basic_success_1
+      - slack/notify:
+          channel: $SLACK_DEFAULT_CHANNEL
+          event: fail
+          template: basic_fail_1
 
   # deploy-infrastructure:
   #   docker:
